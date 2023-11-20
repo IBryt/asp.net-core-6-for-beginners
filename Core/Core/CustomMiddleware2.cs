@@ -3,12 +3,12 @@ using Microsoft.Extensions.Options;
 
 namespace Core;
 
-public class CustomMiddleware2
+public class CustomMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly IResponseFormatter _formatter;
 
-    public CustomMiddleware2(RequestDelegate next, IResponseFormatter formatter)
+    public CustomMiddleware(RequestDelegate next, IResponseFormatter formatter)
     {
         _next = next;
         _formatter = formatter;
@@ -16,9 +16,9 @@ public class CustomMiddleware2
 
     public async Task Invoke(HttpContext context)
     {
-        if (context.Request.Path == "/middleware2")
+        if (context.Request.Path == "/middleware")
         {
-            await _formatter.Format(context, "Custom Middleware 2");
+            await _formatter.Format(context, "Custom Middleware 1");
         }
         else
         {
