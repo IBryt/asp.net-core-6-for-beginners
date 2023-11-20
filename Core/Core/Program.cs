@@ -9,13 +9,13 @@ builder.Services.Configure<FruitOptions>(options =>
 });
 var app = builder.Build();
 
-app.MapGet("/fruit", async (HttpContext context, IOptions<FruitOptions> FruitOptions) =>
-{
-    FruitOptions options = FruitOptions.Value;
-    await context.Response.WriteAsync($"{options.Name}, {options.Color}");
-}); 
+//app.MapGet("/fruit", async (HttpContext context, IOptions<FruitOptions> FruitOptions) =>
+//{
+//    FruitOptions options = FruitOptions.Value;
+//    await context.Response.WriteAsync($"{options.Name}, {options.Color}");
+//}); 
 
-app.UseMiddleware<Middleware>();
+app.UseMiddleware<FruitMiddleware>();
 
 app.MapGet("/", () => "Hello World!");
 
