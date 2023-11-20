@@ -4,6 +4,11 @@ public class Middleware
 {
     private readonly RequestDelegate _next;
 
+    public Middleware()
+    {
+
+    }
+
     public Middleware(RequestDelegate next)
     {
         _next = next;
@@ -16,10 +21,13 @@ public class Middleware
             if (!context.Response.HasStarted)
             {
                 context.Response.ContentType = "text/plane";
-               
+
             }
             await context.Response.WriteAsync("Class-based Middleware \n");
         }
-        await _next(context);
+        if (_next != null)
+        {
+            await _next(context);
+        }
     }
 }
