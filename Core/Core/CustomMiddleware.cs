@@ -6,19 +6,28 @@ namespace Core;
 public class CustomMiddleware2
 {
     private readonly RequestDelegate _next;
-    private readonly IResponseFormatter _formatter;
 
-    public CustomMiddleware2(RequestDelegate next, IResponseFormatter formatter)
+
+    public CustomMiddleware2(RequestDelegate next)
     {
         _next = next;
-        _formatter = formatter;
+
     }
 
-    public async Task Invoke(HttpContext context)
+    public async Task Invoke(
+        HttpContext context,
+        IResponseFormatter formatter1,
+        IResponseFormatter formatter2,
+        IResponseFormatter formatter3,
+        IResponseFormatter formatter4
+        )
     {
         if (context.Request.Path == "/middleware2")
         {
-            await _formatter.Format(context, "Custom Middleware 2");
+            await formatter1.Format(context, string.Empty);
+            await formatter2.Format(context, string.Empty);
+            await formatter3.Format(context, string.Empty);
+            await formatter4.Format(context, string.Empty);
         }
         else
         {

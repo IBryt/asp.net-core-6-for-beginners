@@ -8,6 +8,6 @@ public class GuidService : IResponseFormatter
 
     public async Task Format(HttpContext context, string content)
     {
-        await context.Response.WriteAsync($"Guid {guid} \n<h2>{content}</h2>");
+        await context.Response.WriteAsync($"Guid {guid} \n{content}");
     }
 }
