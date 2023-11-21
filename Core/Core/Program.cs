@@ -1,4 +1,13 @@
+using Core.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<DataContext>((options) =>
+{
+    options.UseSqlServer(builder.Configuration["ConnectionStrings:DbConnection"]);
+});
+
 
 builder.Services.AddHsts((options) =>
 {
@@ -16,7 +25,7 @@ app.MapGet("/https", async (context) =>
 app.UseHttpsRedirection();
 
 if (app.Environment.IsProduction())
-{ 
+{
     app.UseHsts();
 }
 
