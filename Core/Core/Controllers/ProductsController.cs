@@ -36,9 +36,14 @@ public class ProductsController : Controller
     [HttpPost]
     public async Task<IActionResult> SaveProduct([FromBody] Product product)
     {
-        await _dataContext.Products.AddAsync(product);
-        await _dataContext.SaveChangesAsync();
-        return Ok(product);
+        if (ModelState.IsValid)
+        {
+            await _dataContext.Products.AddAsync(product);
+            await _dataContext.SaveChangesAsync();
+            return Ok(product);
+        }
+
+        return BadRequest(ModelState);
     }
 
     [HttpPut]
