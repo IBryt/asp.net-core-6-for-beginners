@@ -32,3 +32,7 @@ if (app.Environment.IsProduction())
 app.MapGet("/", () => "Hello World!");
 
 app.Run();
+
+//migration commands
+//dotnet ef migrations add Initial
+//dotnet ef database update 
