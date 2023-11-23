@@ -15,13 +15,46 @@
                 <tbody>
                     <tr>
                         <th>Name</th>
-                        <th>@Model.Name</th>
-                        <th>Category ID</th>
+                        <td>@Model.Name</td>
                     </tr>
                     <tr>
-                        <td>Price</td>
+                        <th>Price</th>
                         <td>@Model.Price.ToString("c")</td>
-                        <td>@Model.CategoryId</td>
+                    </tr>
+                    <tr>
+                        <th>Price</th>
+                        <td>@(Model.Price * 2)</td>
+                    </tr>
+                    @if (Model.CategoryId == 1)
+                    {
+                        <tr>
+                            <th>Category</th>
+                            <td>Fruits</td>
+                        </tr>
+                    } 
+                    else
+                    {
+                        <tr>
+                            <th>Category</th>
+                            <td>Shirts</td>
+                        </tr>
+                    }
+                    <tr>
+                        <th>Fruit type</th>
+                        <td>
+                            @switch(Model.Name)
+                            {
+                                case "Apple":
+                                    @: It's apples
+                                    break;
+                                case "Lemon":
+                                    @: It's lemons
+                                    break;
+                                default:
+                                    @: It's default
+                                    break;
+                            }
+                        </td>
                     </tr>
                 </tbody>
             </table>
