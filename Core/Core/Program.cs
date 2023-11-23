@@ -11,7 +11,7 @@ builder.Services.AddDbContext<DataContext>((options) =>
     options.UseSqlServer(builder.Configuration["ConnectionStrings:DbConnection"]);
 });
 
-builder.Services.AddControllers().AddNewtonsoftJson();
+builder.Services.AddControllersWithViews().AddNewtonsoftJson();
 
 builder.Services.Configure<MvcNewtonsoftJsonOptions>((options) =>
 {
@@ -22,11 +22,13 @@ builder.Services.Configure<MvcNewtonsoftJsonOptions>((options) =>
 var app = builder.Build();
 
 app.MapControllers();
+//app.MapControllerRoute("Default", "{controller=Home}/{action=Index}/{id?}");
+app.MapDefaultControllerRoute();
 
 var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<DataContext>();
 SeedData.SeedDatabase(context);
 
-app.MapGet("/", () => "Hello World!");
+//app.MapGet("/", () => "Hello World!");
 
 app.Run();
 

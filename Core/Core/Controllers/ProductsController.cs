@@ -35,6 +35,7 @@ public class ProductsController : Controller
     }
 
     [HttpPost]
+    [Consumes("application/xml")]
     public async Task<IActionResult> SaveProduct(Product product)
     {
         await _dataContext.Products.AddAsync(product);

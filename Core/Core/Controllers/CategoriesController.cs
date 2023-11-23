@@ -18,6 +18,7 @@ public class CategoriesController : Controller
     }
 
     [HttpGet("{id}")]
+    [Produces("application/json", "application/xml")]
     public async Task<IActionResult> GetCategory(long id)
     {
         var category = await _dataContext.Categories
