@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Controllers;
 
+[ApiController]
 [Route("api/[controller]")]
 public class ProductsController : Controller
 {
@@ -34,20 +35,15 @@ public class ProductsController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> SaveProduct([FromBody] Product product)
+    public async Task<IActionResult> SaveProduct(Product product)
     {
-        if (ModelState.IsValid)
-        {
-            await _dataContext.Products.AddAsync(product);
-            await _dataContext.SaveChangesAsync();
-            return Ok(product);
-        }
-
-        return BadRequest(ModelState);
+        await _dataContext.Products.AddAsync(product);
+        await _dataContext.SaveChangesAsync();
+        return Ok(product);
     }
 
     [HttpPut]
-    public void UpdateProduct([FromBody] Product product)
+    public void UpdateProduct(Product product)
     {
         _dataContext.Update(product);
         _dataContext.SaveChanges();
