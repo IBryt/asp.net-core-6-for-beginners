@@ -1,20 +1,24 @@
 ﻿using Core.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Core.Controllers
+namespace Core.Controllers;
+
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    private readonly DataContext _dataContext;
+
+    public HomeController(DataContext dataContext)
     {
-        private readonly DataContext _dataContext;
+        _dataContext = dataContext;
+    }
 
-        public HomeController(DataContext dataContext)
-        {
-            _dataContext = dataContext;
-        }
+    public async Task<IActionResult> Index(long id)
+    {
+        return View("Fruit", await _dataContext.Products.FindAsync(id));
+    }
 
-        public async Task<IActionResult> Index(long id)
-        {
-            return View("Fruit", await _dataContext.Products.FindAsync(id));
-        }
+    public IActionResult Common(long id)
+    {
+        return View("/Views/Shared/Common.cshtml");
     }
 }
