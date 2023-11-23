@@ -14,7 +14,7 @@ namespace Core.Controllers
 
         public async Task<IActionResult> Index(long id)
         {
-            return View(await _dataContext.Products.FindAsync(id));
+            return View("Fruit", await _dataContext.Products.FindAsync(id));
         }
     }
 }
