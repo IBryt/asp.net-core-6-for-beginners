@@ -21,4 +21,9 @@ public class HomeController : Controller
     {
         return View("/Views/Shared/Common.cshtml");
     }
+
+    public IActionResult List()
+    {
+        return View(_dataContext.Products);
+    }
 }
