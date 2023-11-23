@@ -3,6 +3,7 @@
 @{
     decimal average = Model.Average(p => p.Price);
     ViewBag.Title = "List";
+    ViewData["fruit"] = "apples";
 }
 
 <div class="col-12 m-2">
@@ -17,16 +18,7 @@
         <tbody>
             @foreach (var p in Model)
             {
-                <tr>
-                    <td>@p.Name</td>
-                    <td>@p.Price</td>
-                    <td>
-                        @((p.Price / average * 100).ToString("F1"))% of average
-                    </td>
-                    <td>
-                        @((p.Price / ViewBag.AveragePrice * 100).ToString("F1"))% of average
-                    </td>
-                </tr>
+                <partial name="_RowPartial" model="p" view-data="ViewData"></partial>
             }
         </tbody>
     </table>
