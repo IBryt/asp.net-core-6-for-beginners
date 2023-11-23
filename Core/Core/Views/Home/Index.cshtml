@@ -4,6 +4,13 @@
     ViewBag.Title = "Home";
 }
 
+@section Header
+    {
+    <div class="bg-primary text-white">
+        Header information
+    </div>
+}
+
 <div class="col-12 m-2">
     <h2 class="text-white bg-info p-2">Product</h2>
     <table class="table table-striped table-bordered">
@@ -54,6 +61,7 @@
         </tbody>
     </table>
 </div>
+
 <div class="col-12 m-2">
     @if (TempData["value"] != null)
     {
@@ -62,3 +70,10 @@
         </div>
     }
 </div>
+
+@section Footer
+{
+    <div class="bg-success text-white">
+        Footer information
+    </div>
+}
