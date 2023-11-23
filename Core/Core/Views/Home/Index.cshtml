@@ -59,6 +59,14 @@
                 </tbody>
             </table>
         </div>
+        <div class="row m-2">
+            @if (TempData["value"] != null)
+            {
+                <div class="bg-info text-white p-2">
+                    @TempData["value"]
+                </div>
+            }
+        </div>
     </div>
 </body>
 </html>
