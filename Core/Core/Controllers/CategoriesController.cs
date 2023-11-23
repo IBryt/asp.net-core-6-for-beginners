@@ -1,5 +1,6 @@
 ﻿using Core.Infrastructure;
 using Core.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +20,10 @@ public class CategoriesController : Controller
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCategory(long id)
     {
-        var category = await _dataContext.Categories.Include(c => c.Products).FirstAsync(x => x.Id == id);
+        var category = await _dataContext.Categories
+            .Include(c => c.Products)
+            .FirstAsync(x => x.Id == id);
+
         if (category == null) 
         {
             return BadRequest();
@@ -29,6 +33,22 @@ public class CategoriesController : Controller
         {
             product.Category = null;
         }
+
+        return Ok(category);
+    }
+
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> PatchCategory(long id, JsonPatchDocument<Category> patchDoc)
+    {
+        var category = await _dataContext.Categories.FindAsync(id);
+
+        if (category == null)
+        {
+            return BadRequest();
+        }
+
+        patchDoc.ApplyTo(category);
+        await _dataContext.SaveChangesAsync();
 
         return Ok(category);
     }
