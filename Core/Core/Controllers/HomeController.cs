@@ -14,7 +14,7 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index(long id)
     {
-        return View("Fruit", await _dataContext.Products.FindAsync(id));
+        return View(await _dataContext.Products.FindAsync(id));
     }
 
     public IActionResult Common(long id)
