@@ -4,85 +4,9 @@
     ViewBag.Title = "Home";
 }
 
-@section Header
-    {
-    <div class="bg-primary text-white">
-        Header information
-    </div>
-}
 
 <div class="col-12 m-2">
     <h2 class="text-white bg-info p-2">Product</h2>
-    <table class="table table-striped table-bordered">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <td>@Model.Name</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>@Model.Price.ToString("c")</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>@(Model.Price * 2)</td>
-            </tr>
-            @if (Model.CategoryId == 1)
-            {
-                <tr>
-                    <th>Category</th>
-                    <td>Fruits</td>
-                </tr>
-            }
-            else
-            {
-                <tr>
-                    <th>Category</th>
-                    <td>Shirts</td>
-                </tr>
-            }
-            <tr>
-                <th>Fruit type</th>
-                <td>
-                    @switch (Model.Name)
-                    {
-                        case "Apple":
-                            @: It's apples
-                            break;
-                        case "Lemon":
-                            @: It's lemons
-                            break;
-                        default:
-                            @: It's default
-                            break;
-                    }
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    @await Component.InvokeAsync("ProductListing")
 </div>
 
-<div class="col-12 m-2">
-    @if (TempData["value"] != null)
-    {
-        <div class="bg-info text-white p-2">
-            @TempData["value"]
-        </div>
-    }
-</div>
-
-
-
-@section JsonEncoding
-{
-    <div class="bg-info text-white m-2 p-2">
-        @Json.Serialize(Model)
-    </div>
-}
-
-@section Footer
-{
-    <div class="bg-success text-white">
-        Footer information
-    </div>
-}
