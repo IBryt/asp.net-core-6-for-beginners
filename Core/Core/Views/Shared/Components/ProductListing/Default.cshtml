@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Product>
+
+@{
+    decimal average = Model.Average(p => p.Price);
+    ViewBag.Title = "List";
+    ViewData["fruit"] = "apples";
+}
+
+<div class="col-12 m-2">
+    <h2 class="text-white bg-info p-2">All Product</h2>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td class="text-right">@p.Name</td>
+                    <td class="text-right">@p.Price</td>
+                    <td class="text-right">@p.Category.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

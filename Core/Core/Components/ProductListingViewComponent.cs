@@ -1,10 +1,10 @@
 ﻿using Core.Infrastructure;
 using Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Components;
 
-[ViewComponent(Name = "JuicyFruit")]
 public class ProductListingViewComponent : ViewComponent
 {
     private DataContext _dataContext;
@@ -16,8 +16,8 @@ public class ProductListingViewComponent : ViewComponent
         _dataContext = context;
     }
 
-    public string Invoke()
+    public IViewComponentResult Invoke()
     {
-        return $"There are {_dataContext.Products.Count()} products";
+        return View(_dataContext.Products.Include(p => p.Category).ToList());
     }
 }
