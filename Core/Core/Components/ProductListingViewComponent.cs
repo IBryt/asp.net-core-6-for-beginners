@@ -1,6 +1,8 @@
 ﻿using Core.Infrastructure;
 using Core.Models;
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.EntityFrameworkCore;
 
 namespace Core.Components;
@@ -18,6 +20,8 @@ public class ProductListingViewComponent : ViewComponent
 
     public IViewComponentResult Invoke()
     {
-        return View(_dataContext.Products.Include(p => p.Category).ToList());
+        var content = "This is a <h3><i>string</i></h3>";
+        //return Content(content);
+        return new HtmlContentViewComponentResult(new HtmlString(content));
     }
 }
