@@ -18,7 +18,7 @@ public class ProductListingViewComponent : ViewComponent
         _dataContext = context;
     }
 
-    public IViewComponentResult Invoke(string className)
+    public IViewComponentResult Invoke(string className = "primary")
     {
         ViewBag.Class = className;
         return View(_dataContext.Products.Include(p => p.Category).ToList());
