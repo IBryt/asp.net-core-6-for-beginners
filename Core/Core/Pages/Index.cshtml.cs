@@ -8,16 +8,23 @@ namespace Core.Pages;
 public class IndexModel : PageModel
 {
     private readonly DataContext _dataContext;
-    public Product Product { get; set; }
+    public Product? Product { get; set; }
 
     public IndexModel(DataContext dataContext)
     {
         _dataContext = dataContext;
     }
 
-    public async Task OnGetAsync(long id = 1)
+    public async Task<IActionResult> OnGetAsync(long id = 1)
     {
 
         Product = await _dataContext.Products.FindAsync(id);
+
+        if (Product == null) 
+        {
+            return RedirectToPage("NotFound");  
+        }
+
+        return Page();
     }
 }
