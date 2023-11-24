@@ -19,7 +19,11 @@ builder.Services.Configure<MvcNewtonsoftJsonOptions>((options) =>
         Newtonsoft.Json.NullValueHandling.Ignore;
 });
 
+builder.Services.AddRazorPages();
+
 var app = builder.Build();
+
+app.MapRazorPages();
 
 app.MapControllers();
 //app.MapControllerRoute("Default", "{controller=Home}/{action=Index}/{id?}");
