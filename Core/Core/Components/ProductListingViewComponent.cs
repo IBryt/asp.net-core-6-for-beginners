@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Components;
 
+[ViewComponent(Name = "JuicyFruit")]
 public class ProductListingViewComponent : ViewComponent
 {
     private DataContext _dataContext;
