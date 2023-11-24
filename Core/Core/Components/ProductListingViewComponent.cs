@@ -18,10 +18,9 @@ public class ProductListingViewComponent : ViewComponent
         _dataContext = context;
     }
 
-    public IViewComponentResult Invoke()
+    public IViewComponentResult Invoke(string className)
     {
-        var content = "This is a <h3><i>string</i></h3>";
-        //return Content(content);
-        return new HtmlContentViewComponentResult(new HtmlString(content));
+        ViewBag.Class = className;
+        return View(_dataContext.Products.Include(p => p.Category).ToList());
     }
 }
