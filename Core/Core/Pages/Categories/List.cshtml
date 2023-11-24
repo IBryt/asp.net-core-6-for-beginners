@@ -1,0 +1,34 @@
+﻿@page
+@using Core.Infrastructure;
+@using Microsoft.AspNetCore.Mvc.RazorPages;
+@model ListModel
+
+
+<h5>Categories</h5>
+<ul class="list-group m-2">
+    @foreach (var c in Model.Categories)
+    {
+        <li class="list-group-item m-2">
+            @c
+        </li>
+    }
+</ul>
+@functions 
+{
+    public class ListModel : PageModel
+    {
+        private readonly DataContext _dataContext;
+        public IEnumerable<string> Categories { get; set; }
+
+        public ListModel(DataContext dataContext)
+        {
+            _dataContext = dataContext;
+        }
+
+        public void OnGet()
+        {
+
+            Categories = _dataContext.Categories.Select(c => c.Name);
+        }
+    }
+}
