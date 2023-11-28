@@ -7,9 +7,22 @@
 
 <div class="col-12 m-2">
     <h2 class="text-white bg-info p-2">Product</h2>
-    @* <vc:product-listing class-name="danger"/> *@
-    <vc:page-size/>
-    <vc:product-listing/>
-    @await Component.InvokeAsync("ProductListing", new {className = "danger"})
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Name</td>
+                <td>@Model.Price.ToString("C2")</td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <a asp-action="List" class="btn btn-sm btn-info text-white">Back to List</a>
+    </div>
 </div>
 
