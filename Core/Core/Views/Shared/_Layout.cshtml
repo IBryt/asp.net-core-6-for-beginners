@@ -4,9 +4,16 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link href="/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    @* <link asp-href-include="/lib/bootstrap/css/*.min.css" rel="stylesheet" asp-href-exclude="**/*-reboot*, **/*-grid*, **/*-utilities*, **/*.rtl.*"/> *@
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@54.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          asp-fallback-href="/lib/bootstrap/css/bootstrap.min.css"
+          asp-fallback-test-class="btn"
+          asp-fallback-test-property="display"
+          asp-fallback-test-value="inline-block"
+    ></link>
+
     @* <script asp-src-include="/lib/jquery/**/*.js"asp-src-exclude="**.min.**" asp-append-version="true"></script> *@
-    <script src="https://code.jquery.com/jquery-3.6.0111.min.js" asp-fallback-src="/lib/jquery/jquery.min.js" asp-fallback-test="window.jQuery"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1111.min.js" asp-fallback-src="/lib/jquery/jquery.min.js" asp-fallback-test="window.jQuery"></script>
 </head>
 <body>
     <div class="container">
