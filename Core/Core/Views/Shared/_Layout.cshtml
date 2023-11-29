@@ -9,20 +9,33 @@
           asp-fallback-href="/lib/bootstrap/css/bootstrap.min.css"
           asp-fallback-test-class="btn"
           asp-fallback-test-property="display"
-          asp-fallback-test-value="inline-block"
-    ></link>
+          asp-fallback-test-value="inline-block"></link>
 
     @* <script asp-src-include="/lib/jquery/**/*.js"asp-src-exclude="**.min.**" asp-append-version="true"></script> *@
     <script src="https://code.jquery.com/jquery-3.7.1111.min.js" asp-fallback-src="/lib/jquery/jquery.min.js" asp-fallback-test="window.jQuery"></script>
 </head>
 <body>
+    <div class="m-2">
+        <h6 class="bg-primary text-white m-2 p-2">
+            Uncached timestamp: @DateTime.Now.ToLongTimeString()
+        </h6>
+
+        @*<cache expires-after="@TimeSpan.FromSeconds(3)">*@
+        @*<cache expires-on="@DateTime.Parse("2032-01-01")">*@
+        @*<cache expires-sliding="@TimeSpan.FromSeconds(3)">*@
+        <cache expires-sliding="@TimeSpan.FromSeconds(20)" vary-by-route="action">
+            <h6 class="bg-primary text-white m-2 p-2">
+                Cached timestamp: @DateTime.Now.ToLongTimeString()
+            </h6>
+        </cache>
+    </div>
     <div class="container">
         <div class="row">
             @RenderBody()
         </div>
     </div>
     <div class="m-2">
-        <img class ="img-fluid" src="/images/core.jpg" asp-append-version="true" alt="logo" />
+        <img class="img-fluid" src="/images/core.jpg" asp-append-version="true" alt="logo" />
     </div>
 </body>
 </html>
