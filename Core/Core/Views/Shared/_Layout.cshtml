@@ -22,13 +22,27 @@
 
         @*<cache expires-after="@TimeSpan.FromSeconds(3)">*@
         @*<cache expires-on="@DateTime.Parse("2032-01-01")">*@
-        @*<cache expires-sliding="@TimeSpan.FromSeconds(3)">*@
+        @*<cache expires-sliding="@TimeSpan.FromSeconds(20)">*@
         <cache expires-sliding="@TimeSpan.FromSeconds(20)" vary-by-route="action">
             <h6 class="bg-primary text-white m-2 p-2">
                 Cached timestamp: @DateTime.Now.ToLongTimeString()
             </h6>
         </cache>
     </div>
+    
+    <div class="m-2">
+        <environment names="development">
+            <h6 class="bg-primary text-white m-2 p-2">
+                Development
+            </h6>
+        </environment>
+        <environment names="production">
+            <h6 class="bg-primary text-white m-2 p-2">
+                Production
+            </h6>
+        </environment>
+    </div>
+
     <div class="container">
         <div class="row">
             @RenderBody()
