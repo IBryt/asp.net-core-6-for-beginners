@@ -76,4 +76,11 @@ public class RolesController : Controller
 
         return Redirect(Request.Headers["Referer"].ToString());
     }
+
+    public async Task<IActionResult> Delete(string id)
+    {
+        var role = await _roleManager.FindByIdAsync(id);
+        await _roleManager.DeleteAsync(role);
+        return RedirectToAction("Index");
+    }
 }
