@@ -34,7 +34,7 @@ public class UsersController : Controller
             Email = user.Email,
         };
 
-        IdentityResult result = await _userManager.CreateAsync(newUser);
+        IdentityResult result = await _userManager.CreateAsync(newUser, user.Password);
 
         if (result.Succeeded)
         {
@@ -47,6 +47,52 @@ public class UsersController : Controller
         }
 
         return View(user);
+    }
+
+
+    public async Task<IActionResult> Edit(string id)
+    {
+        var user = await _userManager.FindByIdAsync(id);
+        var model = new UserViewModel(user);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(UserViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        var user = await _userManager.FindByIdAsync(model.Id);
+        user.UserName = model.UserName;
+        user.Email = model.Email;
+
+        var result = await _userManager.UpdateAsync(user);
+
+        if (result.Succeeded && !string.IsNullOrEmpty(model.Password))
+        {
+            await _userManager.RemovePasswordAsync(user);
+            result = await _userManager.AddPasswordAsync(user, model.Password);
+        }
+
+        if (result.Succeeded)
+        { 
+            return RedirectToAction("Index");
+        }
+
+        foreach (var error in result.Errors)
+        {
+            ModelState.AddModelError("", error.Description);
+        }
+
+        return View(model);
     }
 
 }
