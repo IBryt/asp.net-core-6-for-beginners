@@ -18,17 +18,28 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<IdentityContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequiredLength = 4;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireDigit = false;
+
+    options.User.RequireUniqueEmail = true;
+});
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
 app.MapControllers();
 
-app.MapDefaultControllerRoute();
-
 app.MapControllerRoute(
     name: "Areas",
     pattern: "{area:exists}/{controller=Users}/{action=Index}/{id?}");
+
+app.MapDefaultControllerRoute();
 
 app.UseStaticFiles();
 
