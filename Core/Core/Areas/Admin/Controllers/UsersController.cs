@@ -53,12 +53,13 @@ public class UsersController : Controller
     public async Task<IActionResult> Edit(string id)
     {
         var user = await _userManager.FindByIdAsync(id);
-        var model = new UserViewModel(user);
+      
         if (user == null)
         {
             return NotFound();
         }
 
+        var model = new UserViewModel(user);
         return View(model);
     }
 
@@ -95,4 +96,17 @@ public class UsersController : Controller
         return View(model);
     }
 
+    public async Task<IActionResult> Delete(string id)
+    {
+        var user = await _userManager.FindByIdAsync(id);
+
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        await _userManager.DeleteAsync(user);
+
+        return RedirectToAction("Index");
+    }
 }
