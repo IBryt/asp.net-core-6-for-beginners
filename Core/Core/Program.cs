@@ -1,4 +1,5 @@
 using Core.Infrastructure;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,6 +29,11 @@ builder.Services.Configure<IdentityOptions>(options =>
 
     options.User.RequireUniqueEmail = true;
 });
+builder.Services.Configure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme, options =>
+{
+    options.LoginPath = "/Login2";
+    options.AccessDeniedPath = "/AccessDenied2";
+});
 
 builder.Services.AddControllersWithViews();
 
@@ -43,12 +49,14 @@ app.MapDefaultControllerRoute();
 
 app.UseStaticFiles();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<DataContext>();
 SeedData.SeedDatabase(context);
 
 app.Run();
+
 
 /*
  * Console command
